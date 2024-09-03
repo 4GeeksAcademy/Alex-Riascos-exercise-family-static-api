@@ -38,6 +38,34 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+@app.route('/members', methods=['POST'])
+def new_member():
+    body = request.json
+
+    if body.get("first_name", False) == False:
+        return "Falta el nombre", 400
+    if body.get("age" ,False) == False:
+        return "Falta la edad", 400
+    if body.get("lucky_numbers", False) == False:
+        return "Falta el lucky number", 400
+    new_person = jackson_family.add_member(body)
+
+    return jsonify(new_person), 200
+@app.route('/member/<int:member_id>', methods=['GET'])
+def get_one_member(member_id):
+    search_member = jackson_family.get_member(member_id)
+    if search_member == None:
+        return "No se encontro ningun ID", 404
+    return search_member, 200
+
+@app.route('/member/<int:member_id>', methods=['DELETE'])
+def delete_member(member_id):
+    delete_member = jackson_family.delete_member(member_id)
+    if delete_member == None:
+        return "No se encontro el Id", 404
+    return delete_member, 200
+
+
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
