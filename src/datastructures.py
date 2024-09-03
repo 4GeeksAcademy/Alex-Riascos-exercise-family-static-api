@@ -12,10 +12,10 @@ class FamilyStructure:
     def __init__(self, last_name):
         self.last_name = last_name
 
-        # example list of members
+        """Initialize the family members with default values."""
         self._members = [
             {
-                "id" : self._generateId(),
+                "id" : self._generate_Id(),
                 "first_name":  "John",
                 "last_name": self.last_name,
                 "age": 33,
@@ -23,7 +23,7 @@ class FamilyStructure:
             },
 
             {
-                "id" : self._generateId(),
+                "id" : self._generate_Id(),
                 "first_name":  "Jane",
                 "last_name": self.last_name,
                 "age": 35,
@@ -31,7 +31,7 @@ class FamilyStructure:
             },
             
             {
-                "id" : self._generateId(),
+                "id" : self._generate_Id(),
                 "first_name":  "Jimmy",
                 "last_name": self.last_name,
                 "age": 5,
@@ -40,13 +40,14 @@ class FamilyStructure:
         ]
 
     # read-only: Use this method to generate random members ID's when adding members into the list
-    def _generateId(self):
+    def _generate_Id(self):
+        """Generate a random ID for a family member."""
         return randint(0, 99999999)
 
     def add_member(self, member):
-        # fill this method and update the return
+        """Add a new member to the family."""
         new_person = {
-            "id" : self._generateId(),
+            "id" : self._generate_Id(),
             "first_name":  member.get("first_name"),
             "last_name": self.last_name,
             "age": member.get("age"),
@@ -56,18 +57,19 @@ class FamilyStructure:
         return new_person
 
     def delete_member(self, id):
-        # fill this method and update the return
+        """Delete a member from the family by ID."""
         for member_idex in range(len(self._members)):
             if self._members[member_idex]["id"] == id:
                 return self._members.pop(member_idex)
         
 
     def get_member(self, id):
-        # fill this method and update the return
+        """Update an existing member's information."""
         for member in self._members:
             if member["id"] == id:
                 return member
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
+        """Retrieve a list of all family members."""
         return self._members
