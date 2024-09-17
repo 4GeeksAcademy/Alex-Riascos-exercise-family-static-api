@@ -28,10 +28,10 @@ def sitemap():
 def get_all_members():
     """Retrieve all family members."""
     members = jackson_family.get_all_members()
-    response_body = {"family": members}
-    return jsonify(response_body), 200
+    
+    return jsonify(members), 200
 
-@app.route('/members', methods=['POST'])
+@app.route('/member', methods=['POST'])
 def add_new_member():
     """Add a new family member."""
     body = request.json
@@ -43,7 +43,7 @@ def add_new_member():
             return jsonify({"error": f"Falta el campo: {field}"}), 400
 
     new_member = jackson_family.add_member(body)
-    return jsonify(new_member), 201
+    return jsonify(new_member), 200
 
 @app.route('/member/<int:member_id>', methods=['GET'])
 def get_member(member_id):
@@ -59,7 +59,7 @@ def remove_member(member_id):
     deleted_member = jackson_family.delete_member(member_id)
     if deleted_member is None:
         return jsonify({"error": "No se encontró el ID"}), 404
-    return jsonify(deleted_member), 200
+    return jsonify({"member": deleted_member,"done":True}), 200
 
 # This only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':

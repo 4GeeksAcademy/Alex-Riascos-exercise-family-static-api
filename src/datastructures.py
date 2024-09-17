@@ -47,7 +47,7 @@ class FamilyStructure:
     def add_member(self, member):
         """Add a new member to the family."""
         new_person = {
-            "id" : self._generate_Id(),
+            "id" : member.get("id",self._generate_Id()),
             "first_name":  member.get("first_name"),
             "last_name": self.last_name,
             "age": member.get("age"),
